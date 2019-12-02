@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-from jinja2 import Environment, FileSystemLoader, meta
+from jinja2 import Environment, FileSystemLoader #, meta
 import os
-from glob import glob
 from sys import stderr
 from collections import defaultdict
 import toml
