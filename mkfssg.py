@@ -63,23 +63,23 @@ to_rm = target_files - (static_files | t_dsts)
 while to_rm:
     for i in to_rm:
         try:
-            os.unlink(os.path.join(target_dir, i))
+            os.unlink(os.path.join(target_dir, *i))
             to_rm.remove(i)
         except:
             pass
 while to_rmdir:
     for i in to_rmdir:
         try:
-            os.rmdir(os.path.join(target_dir, i))
+            os.rmdir(os.path.join(target_dir, *i))
             to_rmdir.remove(i)
         except:
             pass
 for i in to_mkdir:
-    os.makedirs(i, exist_ok=True)
+    os.makedirs(os.path.join(*i), exist_ok=True)
 assert not static_files & t_dsts
 for i in static_files:
-    os.link(os.path.join(static_dir, i),
-            os.path.join(target_dir, i))
+    os.link(os.path.join(static_dir, *i),
+            os.path.join(target_dir, *i))
 for i in config['templ']:
     src = i["src"]
     dst = i["dst"]
