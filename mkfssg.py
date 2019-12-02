@@ -29,7 +29,7 @@ def files(root_dir):
             ) for dir in dirnames})
     return files, dirs
 def dir_dict(files, dirs):
-    res = dict()
+    res = {'.': set()}
     for d, dir in dirs:
         res[os.path.join(d, dir)] = set()
     for d, file in files:
@@ -74,12 +74,13 @@ while to_rmdir:
             to_rmdir.remove(i)
         except:
             pass
+os.mkdir(target_dir)
 for i in to_mkdir:
     os.makedirs(i, exist_ok=True)
 assert not static_files & t_dsts
 for i in static_files:
-    os.link(os.path.join(static_dir, i),
-            os.path.join(target_dir, i))
+    os.link(os.path.join(static_dir, *i),
+            os.path.join(target_dir, *i))
 for i in config['templ']:
     src = i["src"]
     dst = i["dst"]
